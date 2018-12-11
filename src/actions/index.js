@@ -1,66 +1,152 @@
+// Redux actions
 
-// TODO need to add POST actions to create data
+/*
+ *  Begin GET actions
+ *
+ */
 
-// load products data
+// GET - /products route
 export const loadProducts = () => dispatch => {
   fetch("/products")
     .then(res => res.json())
     .then(products => {
       dispatch(productsLoaded(products));
+    })
+    .catch(err => {
+      console.error("Error retrieving Products", err);
     });
 };
-
-export function productsLoaded(products) {
+// thunk function - GET /products route
+export const productsLoaded = (products) => {
   return {
     type: "PRODUCTS_LOADED",
     value: products
   };
-}
+};
 
-// load contacts data
+// GET - /contacts route
 export const loadContacts = () => dispatch => {
   fetch("/contacts")
     .then(res => res.json())
     .then(contacts => {
       dispatch(contactsLoaded(contacts));
+    })
+    .catch(err => {
+      console.error("Error retrieving Contacts", err);
     });
 };
-
-export function contactsLoaded(contacts) {
+// thunk function - GET /contacts route
+export const contactsLoaded = (contacts) => {
   return {
     type: "CONTACTS_LOADED",
     value: contacts
   };
-}
+};
 
-// load vehicles data
+// GET - /vehicles route
 export const loadVehicles = () => dispatch => {
   fetch("/vehicles")
     .then(res => res.json())
     .then(vehicles => {
       dispatch(vehiclesLoaded(vehicles));
+    })
+    .catch(err => {
+      console.error("Error retrieving Vehicles", err);
     });
 };
-
-export function vehiclesLoaded(vehicles) {
+// thunk function - GET /vehicles route
+export const vehiclesLoaded = (vehicles) => {
   return {
     type: "VEHICLES_LOADED",
     value: vehicles
   };
-}
+};
 
-// load comments data
+// GET - /comments route
 export const loadComments = () => dispatch => {
   fetch("/comments")
     .then(res => res.json())
     .then(comments => {
       dispatch(commentsLoaded(comments));
+    })
+    .catch(err => {
+      console.error("Error retrieving Comments", err);
     });
 };
-
-export function commentsLoaded(comments) {
+// thunk function - GET /comments route
+export const commentsLoaded = (comments) => {
   return {
     type: "COMMENTS_LOADED",
     value: comments
   };
-}
+};
+
+/*
+ *  End GET actions
+ */
+
+/* ---------------------------------------- */
+
+/*
+ *   BEGIN POST ACTIONS
+ */
+
+// POST - /products route
+// adds a product object to redux state
+// then dispatches the loadProducts() fn
+export const createProduct = (product) => dispatch => {
+  fetch("/products", {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify(product)
+  }).then(() => {
+    dispatch(loadProducts());
+  }).catch(err => {
+    console.error("Error creating Product", err);
+  });
+};
+
+// POST - /contacts route
+// adds a contact object to redux state
+// then dispatches the loadContacts() fn
+export const createContact = (contact) => dispatch => {
+  fetch("/contacts", {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify(contact)
+  }).then(() => {
+    dispatch(loadContacts());
+  }).catch(err => {
+    console.error("Error creating Contact", err);
+  });
+};
+
+// POST - /vehicles route
+// adds a vehicle object to redux state
+// then dispatches the loadVehicles() fn
+export const createVehicle = (vehicle) => dispatch => {
+  fetch("/vehicles", {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify(vehicle)
+  }).then(() => {
+    dispatch(loadVehicles());
+  }).catch(err => {
+    console.error("Error creating Vehicle", err);
+  });
+};
+
+// POST - /comments route
+// adds a comment object to redux state
+// then dispatches the loadComments() fn
+export const createComment = (comment) => dispatch => {
+  fetch("/comments", {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify(comment)
+  }).then(() => {
+    dispatch(loadComments());
+  }).catch(err => {
+    console.error("Error creating Comment", err);
+  });
+};

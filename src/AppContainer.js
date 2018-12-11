@@ -1,8 +1,10 @@
 import App from "./App";
 import "./App.css";
 import { connect } from "react-redux";
+// load redux actions
 import { loadContacts, loadProducts, loadVehicles, loadComments } from "./actions";
 
+// map each action to a prop to be used in App.js
 function mapDispatchToProps(dispatch) {
   return {
     loadContacts: () => {
